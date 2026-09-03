@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiama — Bokkaido Milk, Pressed Into a Bar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --milk:#FBF7F0;
+    --milk-deep:#F3ECDE;
+    --sage:#8CA07D;
+    --sage-tint:#E7EEE0;
+    --pasture:#33452C;
+    --pasture-soft:#5B6E4E;
+    --sakura:#DE9CA0;
+    --sakura-tint:#F7E6E4;
+    --gold:#C79A4E;
+    --ink:#221D16;
+    --paper:#FFFDF8;
+    --soap-radius: 46px 14px 46px 14px;
+    --soap-radius-sm: 26px 8px 26px 8px;
+    --line-max: 62ch;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--milk);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{ font-family:'Fraunces',serif; color:var(--pasture); margin:0; font-weight:600; }
+
+  p{ margin:0; max-width:var(--line-max); }
+
+  a{ color:inherit; }
+
+  button{ font-family:inherit; cursor:pointer; }
+
+  .wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,247,240,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(51,69,44,0.12);
+  }
+  .topbar .wrap{ display:flex; align-items:center; justify-content:space-between; padding-top:14px; padding-bottom:14px; }
+  .brandmark{ font-family:'Fraunces',serif; font-style:italic; font-weight:500; font-size:1.3rem; color:var(--pasture); text-decoration:none; }
+  .topbar nav a{
+    text-decoration:none; font-weight:600; font-size:0.9rem; color:var(--pasture);
+    border-bottom:2px solid var(--sakura); padding-bottom:2px;
+  }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-block; border:none; border-radius:var(--soap-radius-sm);
+    padding:13px 26px; font-weight:600; font-size:0.95rem; text-decoration:none;
+    transition:transform 0.15s ease;
+  }
+  .btn:focus-visible, a:focus-visible, button:focus-visible, summary:focus-visible{
+    outline:3px solid var(--sakura); outline-offset:2px;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{ background:var(--pasture); color:var(--milk); }
+  .btn-ghost{ background:transparent; color:var(--pasture); border:1.5px solid var(--pasture); }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:56px 0 40px; }
+  .scan-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--sakura-tint); color:var(--pasture-soft);
+    border-radius:999px; padding:7px 16px; font-size:0.82rem; font-weight:600;
+    margin-bottom:28px;
+  }
+  .scan-pill::before{ content:"●"; color:var(--sakura); font-size:0.6rem; }
+
+  .hero-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center; }
+  @media (max-width:760px){ .hero-grid{ grid-template-columns:1fr; } }
+
+  .hero h1{ font-size:clamp(2.4rem,6vw,3.6rem); line-height:1.05; letter-spacing:-0.01em; }
+  .hero .sub{ margin-top:18px; font-size:1.08rem; color:var(--pasture-soft); max-width:46ch; }
+  .hero .ctas{ margin-top:30px; display:flex; gap:14px; flex-wrap:wrap; }
+  .chips{ margin-top:26px; display:flex; gap:10px; flex-wrap:wrap; }
+  .chip{
+    background:var(--paper); border:1px solid rgba(51,69,44,0.15);
+    border-radius:999px; padding:7px 14px; font-size:0.85rem; font-weight:600; color:var(--pasture);
+  }
+
+  /* hero visual: soap bar + milk drop */
+  .hero-visual{ position:relative; display:flex; justify-content:center; align-items:center; min-height:280px; }
+  .soap-bar{
+    width:230px; height:150px; border-radius:var(--soap-radius);
+    background:linear-gradient(155deg,#FFFEFB 0%, #F4EAD6 55%, #E8D7B4 100%);
+    box-shadow:0 30px 50px -22px rgba(51,69,44,0.35), inset 0 0 0 1px rgba(255,255,255,0.6);
+    position:relative;
+  }
+  .stamp{
+    position:absolute; top:-18px; right:-14px;
+    background:var(--paper); border:1.5px dashed var(--pasture-soft);
+    border-radius:50%; width:74px; height:74px;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    transform:rotate(9deg);
+    font-family:'Fraunces',serif; font-size:0.62rem; font-weight:600; color:var(--pasture); line-height:1.15;
+    padding:6px;
+  }
+  .drop{
+    position:absolute; left:50%; top:-70px; width:16px; height:16px;
+    background:linear-gradient(160deg,#fff,#EDE3CC);
+    border-radius:50% 50% 50% 0; transform:translateX(-50%) rotate(45deg);
+    animation:fall 1.4s cubic-bezier(.5,0,.75,0) 0.3s 1 forwards;
+    opacity:0;
+  }
+  .ripple{
+    position:absolute; left:50%; top:8px; width:10px; height:10px;
+    border:2px solid rgba(199,154,78,0.55); border-radius:50%;
+    transform:translate(-50%,-50%); opacity:0;
+    animation:ripple 0.9s ease-out 1.55s 1 forwards;
+  }
+  @keyframes fall{
+    0%{ top:-70px; opacity:1; }
+    85%{ opacity:1; }
+    100%{ top:6px; opacity:0; }
+  }
+  @keyframes ripple{
+    0%{ width:10px; height:10px; opacity:0.9; }
+    100%{ width:120px; height:120px; opacity:0; }
+  }
+
+  /* ---------- section shell ---------- */
+  section{ padding:64px 0; }
+  .tint-sage{ background:var(--sage-tint); }
+  .tint-blush{ background:var(--sakura-tint); }
+  .section-head{ max-width:56ch; margin-bottom:36px; }
+  .section-head h2{ font-size:clamp(1.7rem,4vw,2.3rem); }
+  .section-head p{ margin-top:12px; color:var(--pasture-soft); font-size:1.02rem; }
+
+  /* ---------- hokkaido tabs ---------- */
+  .tabs{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
+  .tab-btn{
+    background:var(--paper); border:1px solid rgba(51,69,44,0.18); border-radius:999px;
+    padding:9px 18px; font-size:0.88rem; font-weight:600; color:var(--pasture-soft);
+  }
+  .tab-btn[aria-selected="true"]{ background:var(--pasture); color:var(--milk); border-color:var(--pasture); }
+  .tab-panel{
+    background:var(--paper); border-radius:var(--soap-radius); padding:28px 30px;
+    box-shadow:0 18px 34px -26px rgba(51,69,44,0.4);
+    display:none;
+  }
+  .tab-panel.active{ display:block; }
+  .tab-panel h3{ font-size:1.15rem; margin-bottom:8px; }
+  .tab-panel p{ color:var(--ink); }
+
+  /* ---------- pillars ---------- */
+  .pillars{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media (max-width:760px){ .pillars{ grid-template-columns:1fr; } }
+  .pillar{
+    background:var(--paper); border-radius:var(--soap-radius); padding:26px;
+    box-shadow:0 18px 30px -24px rgba(51,69,44,0.35);
+    border:1px solid rgba(51,69,44,0.08);
+    text-align:left;
+  }
+  .pillar-btn{ background:none; border:none; padding:0; width:100%; text-align:left; }
+  .pillar h3{ font-size:1.2rem; margin-bottom:8px; }
+  .pillar .kicker{ font-size:0.78rem; letter-spacing:0.03em; color:var(--sage); font-weight:700; margin-bottom:6px; display:block; }
+  .pillar .tip{
+    margin-top:14px; padding-top:14px; border-top:1px dashed rgba(51,69,44,0.2);
+    color:var(--pasture-soft); font-size:0.92rem; display:none;
+  }
+  .pillar[data-open="true"] .tip{ display:block; }
+  .pillar .reveal-cue{ margin-top:14px; font-size:0.84rem; font-weight:600; color:var(--sakura); }
+  .pillar[data-open="true"] .reveal-cue{ display:none; }
+
+  /* ---------- quiz ---------- */
+  .quiz-card{
+    background:var(--paper); border-radius:var(--soap-radius); padding:32px;
+    box-shadow:0 20px 40px -26px rgba(51,69,44,0.4);
+  }
+  .quiz-card h3{ font-size:1.3rem; margin-bottom:20px; }
+  .quiz-options{ display:grid; gap:12px; }
+  .quiz-opt{
+    text-align:left; background:var(--milk); border:1.5px solid rgba(51,69,44,0.15);
+    border-radius:var(--soap-radius-sm); padding:16px 18px; font-size:0.98rem; font-weight:600; color:var(--ink);
+    transition:border-color 0.15s ease, background 0.15s ease;
+  }
+  .quiz-opt:hover{ border-color:var(--sage); }
+  .quiz-opt.picked{ background:var(--sakura-tint); border-color:var(--sakura); }
+  .quiz-result{
+    margin-top:24px; padding:22px 24px; border-radius:var(--soap-radius-sm);
+    background:var(--sage-tint); display:none;
+  }
+  .quiz-result.show{ display:block; }
+  .quiz-result .pack-name{ font-family:'Fraunces',serif; font-weight:600; font-size:1.15rem; color:var(--pasture); }
+  .quiz-result .price{ color:var(--gold); font-weight:700; }
+  .quiz-result p{ margin-top:8px; color:var(--ink); }
+  .quiz-reset{ margin-top:14px; background:none; border:none; text-decoration:underline; font-size:0.88rem; color:var(--pasture-soft); padding:0; display:none; }
+  .quiz-reset.show{ display:inline-block; }
+
+  /* ---------- packs ---------- */
+  .packs{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media (max-width:760px){ .packs{ grid-template-columns:1fr; } }
+  .pack{
+    background:var(--paper); border-radius:var(--soap-radius); padding:26px;
+    border:1px solid rgba(51,69,44,0.1);
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .pack .role{ font-size:0.78rem; font-weight:700; letter-spacing:0.03em; color:var(--sage); }
+  .pack .size{ font-family:'Fraunces',serif; font-size:1.4rem; color:var(--pasture); }
+  .pack .price{ font-size:1.05rem; font-weight:700; color:var(--gold); }
+  .pack .desc{ color:var(--pasture-soft); font-size:0.92rem; }
+  .pack.best{ border:2px solid var(--sakura); position:relative; }
+  .pack.best::before{
+    content:"Best value"; position:absolute; top:-13px; right:20px;
+    background:var(--sakura); color:var(--paper); font-size:0.72rem; font-weight:700;
+    padding:4px 12px; border-radius:999px;
+  }
+
+  /* ---------- faq ---------- */
+  .faq-item{
+    border-bottom:1px solid rgba(51,69,44,0.15); padding:18px 0;
+  }
+  .faq-item summary{
+    font-family:'Fraunces',serif; font-size:1.05rem; color:var(--pasture); cursor:pointer;
+    list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{
+    content:"+"; font-size:1.4rem; color:var(--sage); flex-shrink:0; transition:transform 0.15s ease;
+  }
+  .faq-item[open] summary::after{ content:"–"; }
+  .faq-item p{ margin-top:12px; color:var(--pasture-soft); }
+
+  .jp{ font-family:'Inter',sans-serif; color:var(--pasture-soft); font-size:0.95rem; margin-top:10px; letter-spacing:0.02em; }
+  .jp-small{ font-size:0.76rem; color:var(--sage); display:block; margin-top:4px; }
+
+  /* ---------- flip badges ---------- */
+  .badge-row{ display:flex; gap:22px; flex-wrap:wrap; justify-content:flex-start; }
+  .badge{ perspective:900px; width:152px; height:152px; }
+  .badge-inner{
+    position:relative; width:100%; height:100%; border-radius:50%;
+    transition:transform 0.55s ease; transform-style:preserve-3d;
+  }
+  .badge.flipped .badge-inner{ transform:rotateY(180deg); }
+  .badge-face{
+    position:absolute; inset:0; border-radius:50%; backface-visibility:hidden;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:16px; border:none; background:none; font-family:inherit;
+  }
+  .badge-front{ background:var(--paper); border:2.5px solid var(--sakura); color:var(--pasture); }
+  .badge-front .en{ font-family:'Fraunces',serif; font-weight:600; font-size:1rem; line-height:1.2; }
+  .badge-back{
+    background:var(--pasture); color:var(--milk); transform:rotateY(180deg);
+    font-size:0.78rem; line-height:1.35;
+  }
+  .badge-hint{ font-size:0.68rem; color:var(--sage); margin-top:6px; }
+
+  /* ---------- moisture meter ---------- */
+  .meter-card{
+    background:var(--paper); border-radius:var(--soap-radius); padding:30px;
+    box-shadow:0 18px 34px -26px rgba(51,69,44,0.4); margin-top:36px;
+  }
+  .meter-card h3{ font-size:1.1rem; margin-bottom:6px; }
+  .meter-visual{
+    height:52px; border-radius:14px; margin:20px 0 14px; position:relative; overflow:hidden;
+    background:repeating-linear-gradient(115deg, #E7DCC4 0 6px, #DED0AF 6px 12px);
+  }
+  .meter-fill{
+    position:absolute; inset:0; width:0%;
+    background:linear-gradient(90deg, rgba(255,253,248,0.2), rgba(255,253,248,0.95));
+    transition:width 0.1s ease-out;
+  }
+  input[type="range"].meter-range{ width:100%; accent-color:var(--sakura); }
+  .meter-label{ font-weight:700; color:var(--pasture); min-height:1.4em; }
+
+  footer{ padding:44px 0 60px; text-align:center; }
+  footer .brandmark{ font-size:1.5rem; }
+  footer p{ margin:10px auto 0; color:var(--pasture-soft); font-size:0.88rem; max-width:40ch; }
+
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="wrap">
+      <a class="brandmark" href="#top">tiama</a>
+      <nav><a href="#packs">See the packs</a></nav>
+    </div>
+  </div>
+
+  <div id="top" class="wrap hero">
+    <span class="scan-pill">You scanned a Tiama shelf tag — here's the story</span>
+    <div class="hero-grid">
+      <div>
+        <h1>Bokkaido milk,<br>pressed into a bar.</h1>
+        <p class="jp">うるおいと、ぜいたくを。<span class="jp-small">Moisture, and a little indulgence.</span></p>
+        <p class="sub" style="margin-top:16px;">A new soap on your local shelf, made from a simple idea: milk that comes from cool, unhurried pastures makes for a gentler bar. Moisturizing, gentle, and a little indulgent.</p>
+        <div class="ctas">
+          <a class="btn btn-primary" href="#hokkaido">Meet Bokkaido</a>
+          <a class="btn btn-ghost" href="#packs">See the packs</a>
+        </div>
+        <div class="chips">
+          <span class="chip">50 g · ₹49 trial</span>
+          <span class="chip">125 g · ₹92</span>
+          <span class="chip">3-pack for the family</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="soap-bar">
+          <div class="stamp">Bokkaido<br>北海道</div>
+        </div>
+        <div class="drop"></div>
+        <div class="ripple"></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="hokkaido" class="tint-sage">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Where the name comes from</h2>
+        <p class="jp">北海道にインスパイアされて。<span class="jp-small">Inspired by Hokkaido.</span></p>
+        <p style="margin-top:14px;">Tiama's "Bokkaido Milk" takes its name from Hokkaido (北海道) — Japan's real northernmost island, and the place where most of the country's milk actually comes from. Cooler, greener, and a lot less crowded than the rest of Japan.</p>
+      </div>
+      <div class="tabs" role="tablist">
+        <button class="tab-btn" role="tab" aria-selected="true" data-tab="climate">Cool by design</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="pasture">Room to roam</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tradition">A dairy tradition</button>
+      </div>
+      <div class="tab-panel active" data-panel="climate">
+        <h3>Cool by design</h3>
+        <p>Hokkaido's summers rarely turn brutal. That matters for dairy cows — heat stresses them out and thins their milk. Cooler pastures mean calmer cows and richer, creamier milk.</p>
+      </div>
+      <div class="tab-panel" data-panel="pasture">
+        <h3>Room to roam</h3>
+        <p>Wide open grassland means cows here graze on real grass for more of the year than almost anywhere else in Japan, instead of living on feed alone.</p>
+      </div>
+      <div class="tab-panel" data-panel="tradition">
+        <h3>A dairy tradition</h3>
+        <p>Hokkaido has been Japan's dairy heartland for over a century, and today the island produces roughly half of all the milk in the country. Tiama is built on that reputation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pillars">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What Hokkaido milk actually does for skin</h2>
+        <p>No lab coats, no long ingredient lists. Just three things Tiama is built around — tap each one for the plain-language version.</p>
+      </div>
+      <div class="pillars">
+
+        <div class="pillar" data-open="false">
+          <button class="pillar-btn" data-pillar-toggle aria-expanded="false">
+            <span class="kicker">Pillar 1 · 保湿 (hoshitsu)</span>
+            <h3>Moisturizing</h3>
+            <p>Milk fats sit close to the fats already in your skin, so the bar cleans without that tight, stripped feeling.</p>
+            <p class="tip">Try noticing this: run a finger over your arm right after rinsing. No squeak — just soft.</p>
+            <span class="reveal-cue">Tap for a tip</span>
+          </button>
+        </div>
+
+        <div class="pillar" data-open="false">
+          <button class="pillar-btn" data-pillar-toggle aria-expanded="false">
+            <span class="kicker">Pillar 2 · やさしい (yasashii)</span>
+            <h3>Gentle</h3>
+            <p>A soft, low-lather base means Tiama is easy on skin that reacts to strong soaps — no perfume overload, no harsh foam.</p>
+            <p class="tip">Try noticing this: it works fine on your face too, not just your body — most bars can't say that.</p>
+            <span class="reveal-cue">Tap for a tip</span>
+          </button>
+        </div>
+
+        <div class="pillar" data-open="false">
+          <button class="pillar-btn" data-pillar-toggle aria-expanded="false">
+            <span class="kicker">Pillar 3 · ぜいたく (zeitaku)</span>
+            <h3>Indulgent</h3>
+            <p>A rich lather and a warm milk scent turn a two-minute wash into a small daily ritual, not just a chore.</p>
+            <p class="tip">Try noticing this: let the lather sit for ten seconds before rinsing — that's where the scent really shows up.</p>
+            <span class="reveal-cue">Tap for a tip</span>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="badge-row" style="margin-top:44px;">
+
+        <div class="badge" data-badge tabindex="0" role="button" aria-pressed="false" aria-label="Flip badge: three pillars, one bar">
+          <div class="badge-inner">
+            <div class="badge-face badge-front">
+              <span class="en">3 pillars,<br>1 bar</span>
+              <span class="badge-hint">tap to flip</span>
+            </div>
+            <div class="badge-face badge-back">
+              保湿 · やさしい · ぜいたく<br>Moisturizing, gentle and indulgent — that's the whole idea, in one bar.
+            </div>
+          </div>
+        </div>
+
+        <div class="badge" data-badge tabindex="0" role="button" aria-pressed="false" aria-label="Flip badge: half of Japan's milk">
+          <div class="badge-inner">
+            <div class="badge-face badge-front">
+              <span class="en">~½ of<br>Japan's milk</span>
+              <span class="badge-hint">tap to flip</span>
+            </div>
+            <div class="badge-face badge-back">
+              北海道 (Hokkaido) supplies roughly half of all milk made in Japan — the tradition Bokkaido borrows its name from.
+            </div>
+          </div>
+        </div>
+
+        <div class="badge" data-badge tabindex="0" role="button" aria-pressed="false" aria-label="Flip badge: fifty grams, forty nine rupees">
+          <div class="badge-inner">
+            <div class="badge-face badge-front">
+              <span class="en">50 g for<br>₹49</span>
+              <span class="badge-hint">tap to flip</span>
+            </div>
+            <div class="badge-face badge-back">
+              About the price of a cup of chai — a low-risk way to meet Tiama before buying the full-size bar.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="meter-card">
+        <h3>Feel the difference</h3>
+        <p class="jp" style="margin-bottom:0;">乾燥からうるおいへ。<span class="jp-small">From dry to moisturized — drag the slider.</span></p>
+        <div class="meter-visual"><div class="meter-fill" id="meterFill"></div></div>
+        <input class="meter-range" type="range" min="0" max="100" value="0" id="meterRange" aria-label="Drag to feel the moisture difference">
+        <p class="meter-label" id="meterLabel">Right after rinsing with a regular bar: tight, a little squeaky.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="tint-blush">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Which bar should you start with?</h2>
+        <p>Answer honestly. It takes five seconds.</p>
+      </div>
+
+      <div class="quiz-card">
+        <h3>How are you feeling about soap bars right now?</h3>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-result="recruit">Never tried a milk soap before</button>
+          <button class="quiz-opt" data-result="convert">I already keep a bar by the sink</button>
+          <button class="quiz-opt" data-result="retain">Shopping for the whole household</button>
+        </div>
+
+        <div class="quiz-result" data-result-panel="recruit">
+          <div class="pack-name">Start with Recruit — 50 g · <span class="price">₹49</span></div>
+          <p>Exactly why the small bar exists. It's a low-risk way to meet Tiama before you commit to anything bigger.</p>
+        </div>
+        <div class="quiz-result" data-result-panel="convert">
+          <div class="pack-name">Go for Convert — 125 g · <span class="price">₹92</span></div>
+          <p>You already know the ritual — skip the trial size and get the full-size bar that lasts.</p>
+        </div>
+        <div class="quiz-result" data-result-panel="retain">
+          <div class="pack-name">Grab the Family Pack — 3 × 125 g</div>
+          <p>Keeps every bathroom in the house stocked without a mid-month run back to the store.</p>
+        </div>
+
+        <button class="quiz-reset" data-quiz-reset>Try a different answer</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="packs">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The full lineup</h2>
+        <p>Three sizes, one bar. Pick the one that matches how you shop.</p>
+      </div>
+      <div class="packs">
+        <div class="pack">
+          <span class="role">Recruit</span>
+          <span class="size">50 g</span>
+          <span class="price">₹49</span>
+          <span class="desc">Say hello. The trial bar, priced like an easy yes.</span>
+        </div>
+        <div class="pack best">
+          <span class="role">Convert</span>
+          <span class="size">125 g</span>
+          <span class="price">₹92</span>
+          <span class="desc">The everyday bar, once you're hooked.</span>
+        </div>
+        <div class="pack">
+          <span class="role">Retain</span>
+          <span class="size">3 × 125 g</span>
+          <span class="price">Family bundle</span>
+          <span class="desc">Stock the whole bathroom in one trip.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tint-sage">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Quick questions</h2>
+      </div>
+
+      <details class="faq-item" open>
+        <summary>Is this a medicated soap?</summary>
+        <p>No — Tiama is a gentle everyday cleansing bar, not a treatment product. Think daily ritual, not remedy.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Why start with a tiny 50 g bar?</summary>
+        <p>So you can try Tiama for about the price of a cup of chai before deciding whether to commit to a full-size bar.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What's actually in a milk soap?</summary>
+        <p>A gentle cleansing base carrying milk fats and glycerin — that's what gives Tiama its soft after-feel instead of the usual tight, dry finish.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Where can I buy it?</summary>
+        <p>Look for the Tiama shelf tag at your local general store or pharmacy — that's exactly how you found this page.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is "Bokkaido" a real place?</summary>
+        <p>No — it's Tiama's own name for the idea. It's inspired by Hokkaido (北海道), Japan's real dairy heartland, reimagined as a name of our own.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <div class="brandmark">tiama</div>
+    <p class="jp" style="justify-content:center;">北海道にインスパイアされた、やさしい石鹸。</p>
+    <p>Bokkaido milk, gently pressed into everyday soap.</p>
+  </footer>
+
+<script>
+  // Hokkaido tabs
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.setAttribute('aria-selected','false'));
+      tabPanels.forEach(p => p.classList.remove('active'));
+      btn.setAttribute('aria-selected','true');
+      document.querySelector('[data-panel="' + btn.dataset.tab + '"]').classList.add('active');
+    });
+  });
+
+  // Pillar reveal
+  document.querySelectorAll('[data-pillar-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const pillar = btn.closest('.pillar');
+      const open = pillar.getAttribute('data-open') === 'true';
+      pillar.setAttribute('data-open', open ? 'false' : 'true');
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+  });
+
+  // Quiz
+  const quizOpts = document.querySelectorAll('.quiz-opt');
+  const resultPanels = document.querySelectorAll('.quiz-result');
+  const resetBtn = document.querySelector('[data-quiz-reset]');
+  quizOpts.forEach(opt => {
+    opt.addEventListener('click', () => {
+      quizOpts.forEach(o => o.classList.remove('picked'));
+      opt.classList.add('picked');
+      resultPanels.forEach(p => p.classList.remove('show'));
+      document.querySelector('[data-result-panel="' + opt.dataset.result + '"]').classList.add('show');
+      resetBtn.classList.add('show');
+    });
+  });
+  resetBtn.addEventListener('click', () => {
+    quizOpts.forEach(o => o.classList.remove('picked'));
+    resultPanels.forEach(p => p.classList.remove('show'));
+    resetBtn.classList.remove('show');
+  });
+
+  // Flip badges
+  document.querySelectorAll('[data-badge]').forEach(badge => {
+    const toggle = () => {
+      const flipped = badge.classList.toggle('flipped');
+      badge.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+    };
+    badge.addEventListener('click', toggle);
+    badge.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+    });
+  });
+
+  // Moisture meter
+  const meterRange = document.getElementById('meterRange');
+  const meterFill = document.getElementById('meterFill');
+  const meterLabel = document.getElementById('meterLabel');
+  const meterCopy = [
+    [0, "Right after rinsing with a regular bar: tight, a little squeaky."],
+    [34, "Somewhere in between — comfortable, but not quite there yet."],
+    [67, "This is Tiama territory: soft, no tightness, still smells like milk."]
+  ];
+  meterRange.addEventListener('input', () => {
+    const v = Number(meterRange.value);
+    meterFill.style.width = v + '%';
+    let text = meterCopy[0][1];
+    for(const [threshold, copy] of meterCopy){ if(v >= threshold) text = copy; }
+    meterLabel.textContent = text;
+  });
+</script>
+
+</body>
+</html>
